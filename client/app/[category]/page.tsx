@@ -8,6 +8,7 @@ import React from 'react';
 import { IoIosSearch } from 'react-icons/Io';
 import Categories from '@/components/Sidebar/Categories';
 import slugify from 'slugify';
+import ToastExample from '@/components/Global/CopyText';
 
 async function getData() {
   const res = await fetch('http://localhost:3001/api/cat');
@@ -110,7 +111,7 @@ const Page = async ({ params, searchParams }: { params: { category: string }; se
                   <Text fontSize={26} fontWeight={700} my={4} justifySelf={'end'} alignSelf={'end'} textAlign={'right'}>
                     {dua.dua_arabic}
                   </Text>
-                  <Text wordBreak={'break-all'} fontSize={18} className='italic'><strong>Transliteration : </strong> {dua.translation_en}</Text>
+                  <Text wordBreak={'break-all'} fontSize={18} className='italic'><strong>Transliteration: </strong> {dua.transliteration_en}</Text>
                   <Text>Translation: {dua.translation_en}</Text>
                   <Text fontSize={18} className='text-green-600'>Reference</Text>
                   <Text fontSize={18} className='text-gray-500'>
@@ -119,7 +120,7 @@ const Page = async ({ params, searchParams }: { params: { category: string }; se
                   <Flex className='flex-col lg:flex-row gap-6' justifyContent={'space-between'}>
                     <AudioPlayer src={dua.audio} />
                     <HStack spacing={4}>
-                      <BsCopy className={"cursor-pointer"} />
+                      <ToastExample textValue={dua.top_en +" " +  dua.dua_arabic + " Transliteration:" + dua.transliteration_en + " Translation:" +  dua.translation_en + " Reference" + dua.refference_en} />
                       <BsBookmark className={"cursor-pointer"} />
                       <BsLightbulb className={"cursor-pointer"} />
                       <BsShare className={"cursor-pointer"} />

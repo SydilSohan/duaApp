@@ -7,6 +7,8 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import ScrollLink from '../Global/Scroll'
 import slugify from 'slugify'
+import { BsDot } from 'react-icons/bs'
+import { FaDotCircle } from "react-icons/fa";
 type Props = {
   data : DuaCategory[]
   subCats : DuaSubcategory[]
@@ -59,8 +61,9 @@ const Categories =  ({data, subCats, subCatId, subDuas, onClose} : Props) => {
    <VStack mt={6} justifyContent={'start'} alignItems={'start'}  textAlign={'start'} >
     {subCats.map((subItem) => 
           <VStack pl={8} alignItems={'start'} key={subItem.id}>
-
-       <Link href={ '?' + createQueryString("subcat", subItem.subcat_id.toString())} >
+            
+       <Link className='flex flex-row gap-4 items-center justify-start'  href={ '?' + createQueryString("subcat", subItem.subcat_id.toString())} >
+        <FaDotCircle className={`${subCatId===subItem.subcat_id.toString() && "text-green-600"} text-md`} />
 <Text className={`${subCatId===subItem.subcat_id.toString() && "text-green-600"}`} fontSize={'medium'}  >
 {subItem.subcat_name_en}
     </Text>
