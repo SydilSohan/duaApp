@@ -7,9 +7,10 @@ import Image from 'next/image';
 import React from 'react';
 import { IoIosSearch } from 'react-icons/Io';
 import Categories from '@/components/Sidebar/Categories';
+import slugify from 'slugify';
 
 async function getData() {
-  const res = await fetch('http://localhost:3000/api/cat');
+  const res = await fetch('http://localhost:3001/api/cat');
   if (!res.ok) {
     throw new Error('Failed to fetch categories');
   }
@@ -19,7 +20,7 @@ async function getData() {
 async function getDuas(catId: string, type?: string) {
   if (!catId) throw new Error('No id provided');
 
-  const res = await fetch(`http://localhost:3000/api/dua/${catId}?type=${type}`);
+  const res = await fetch(`http://localhost:3001/api/dua/${catId}?type=${type}`);
   if (!res.ok) {
     throw new Error('Failed to fetch duas');
   }
@@ -29,13 +30,24 @@ async function getDuas(catId: string, type?: string) {
 async function getSubCat(subId: string | undefined) {
   if (!subId) throw new Error('No id provided');
   
-  const res = await fetch(`http://localhost:3000/api/subcat/${subId}`);
+  const res = await fetch(`http://localhost:3001/api/subcat/${subId}`);
   if (!res.ok) {
     throw new Error('Failed to fetch subcategories');
   }
   return res.json();
 }
-
+export async function generateStaticParams() {
+  const cats : DuaCategory[] = await getData()
+  const categories = cats.map(({cat_name_en, cat_id}) => {
+    return `${slugify(cat_name_en)}?cat=${cat_id}`
+  })
+  return categories.map((category) => {
+    category = category.toString()
+    return {
+      category
+    }
+  })
+}
 const Page = async ({ params, searchParams }: { params: { category: string }; searchParams: { [key: string]: string | string[] | undefined } }) => {
   const catId = searchParams.cat as string;
   const subCatId = searchParams.subcat as string;
@@ -87,7 +99,7 @@ const Page = async ({ params, searchParams }: { params: { category: string }; se
               <div key={dua.id} id={dua.dua_id.toString()} className=' bg-white p-4  rounded-2xl flex flex-col min-w-full'>
                 <HStack>
                   <Image alt='' width={40} height={40} src={'/duacard.svg'} />
-                  <Text fontWeight={'500'} fontSize={16} className='text-green-500'>
+                  <Text fontWeight={'500'} fontSize={16} className='text-green-500 text-left'>
                     {dua.id}. {dua.dua_name_en}
                   </Text>
                 </HStack>

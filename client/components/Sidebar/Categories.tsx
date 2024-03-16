@@ -1,14 +1,12 @@
 'use client'
-import { HStack, VStack, Text, Flex, useDisclosure } from '@chakra-ui/react'
+import { HStack, VStack, Text, Flex } from '@chakra-ui/react'
 import React, { useCallback } from 'react'
 import Image from 'next/image'
 import { Dua, DuaCategory, DuaSubcategory } from '@/types/types'
 import Link from 'next/link'
-import { usePathname, useSearchParams } from 'next/navigation'
-import { useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import ScrollLink from '../Global/Scroll'
-import { ScrollArea } from '../ui/scroll-area'
-
+import slugify from 'slugify'
 type Props = {
   data : DuaCategory[]
   subCats : DuaSubcategory[]
@@ -36,13 +34,16 @@ const Categories =  ({data, subCats, subCatId, subDuas, onClose} : Props) => {
       [searchParams]
     )
   return (
-  <ScrollArea className='rounded-t-2xl  h-screen   bg-white  overflow-auto sticky top-0'>
+  <div className='rounded-t-2xl  bg-white  overflow-auto sticky top-0'>
     <div className='bg-green-700 text-white p-4 rounded-t-2xl '> Categories</div>
+    <div className='h-[85vh] overflow-y-scroll' >
+
+
 <VStack   p={2} >{data.map((item ) => (
 
   
 <Flex flexDir={'column'} flexGrow={1} w={'100%'} key={item.id}>
-    <Link href={`/${encodeURIComponent(item.cat_name_en.replace(/\s+/g, '-')).toLocaleLowerCase()}?cat=${item.cat_id.toString()}`}>
+    <Link href={`/${slugify(item.cat_name_en)}?cat=${item.cat_id.toString()}`}>
         <HStack className={"bg-slate-100 rounded-lg "}>
     <Image className='bg-white rounded-lg m-2' src={'/duar_gurutto.svg'} width={50} height={50} alt={item.cat_name_en} />
     <VStack alignItems={'start'} justifyContent={'start'} spacing={0} textAlign={'left'}>
@@ -60,17 +61,17 @@ const Categories =  ({data, subCats, subCatId, subDuas, onClose} : Props) => {
           <VStack pl={8} alignItems={'start'} key={subItem.id}>
 
        <Link href={ '?' + createQueryString("subcat", subItem.subcat_id.toString())} >
-<Text fontSize={'medium'}  >
+<Text className={`${subCatId===subItem.subcat_id.toString() && "text-green-600"}`} fontSize={'medium'}  >
 {subItem.subcat_name_en}
     </Text>
     </Link>
         {subCatId === subItem.subcat_id.toString() &&  subDuas && 
         
-        <VStack  pl={4} alignItems={'start'}>
+        <VStack spacing={6}  pl={4} alignItems={'start'}>
 
           {subDuas.map((dua) => <VStack key={dua.id}>
             <HStack>
-               <Image src={'/duaarrow.svg'} alt=''  width={20} height={20} />
+               <Image className='-mt-2' src={'/duaarrow.svg'} alt=''  width={20} height={20} />
     
         <ScrollLink href={`#${dua.dua_id}`} >
         <Text onClick={onClose} fontSize={'small'}>
@@ -104,8 +105,9 @@ const Categories =  ({data, subCats, subCatId, subDuas, onClose} : Props) => {
 
 
 ))}</VStack>
+    </div>
     
-  </ScrollArea>
+  </div>
 
       
 

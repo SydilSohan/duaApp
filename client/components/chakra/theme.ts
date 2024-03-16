@@ -1,6 +1,5 @@
 import { extendTheme, Step } from '@chakra-ui/react';
 import { Button } from "./button";
-import { Input } from "./input";
 import { Text } from "./Text";
 export const theme = extendTheme({
   colors: {
