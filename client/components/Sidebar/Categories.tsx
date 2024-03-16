@@ -71,12 +71,7 @@ const Categories =  ({data, subCats, subCatId, subDuas, onClose} : Props) => {
           {subDuas.map((dua) => <VStack key={dua.id}>
             <HStack>
                <Image src={'/duaarrow.svg'} alt=''  width={20} height={20} />
-          {/* <Link href={ '?' + createQueryString("dua", dua.dua_id.toString())}>
-       <Text fontSize={'small'}>
-
-       {dua.dua_name_en}
-       </Text>
-        </Link> */}
+    
         <ScrollLink href={`#${dua.dua_id}`} >
         <Text onClick={onClose} fontSize={'small'}>
 
