@@ -10,7 +10,7 @@ import Categories from '@/components/Sidebar/Categories';
 import slugify from 'slugify';
 import ToastExample from '@/components/Global/CopyText';
 import type { Metadata } from 'next'
-
+import { SpeedInsights } from '@vercel/speed-insights/next';
 async function getData() {
   const res = await fetch(process.env.DB_URL + '/api/cat', {method : 'GET'});
   if (!res.ok) {
@@ -91,6 +91,7 @@ const Page = async ({ params, searchParams }: { params: { category: string }; se
 
   return (
     <main className="flex flex-grow  flex-col justify-start text-center pb-16 gap-4 max-w-screen-xl m-2">
+      <SpeedInsights />
       <Flex className='flex-col lg:flex-row' justifyContent={'space-between'}>
         <div className='flex sm:hidden'>
           <Sidebar data={data} subCatId={subCatId} subDuas={subDuas} subCats={subCats} activeCat={catId} />
