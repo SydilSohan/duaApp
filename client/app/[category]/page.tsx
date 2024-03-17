@@ -35,18 +35,54 @@ async function getSubCat(subId: string | undefined) {
   }
   return res.json();
 }
+// export async function generateStaticParams() {
+//   const cats : DuaCategory[] = await getData()
+
+//   const categories = cats.map( async ({cat_name_en, cat_id}) => {
+
+//     const subcat : DuaSubcategory[] = await getSubCat(cat_id.toString())
+//     const newArr =  subcat.map((s) => {
+//       console.log(`${slugify(cat_name_en)}?cat=${cat_id}?&subcat=${s.subcat_id}`)
+
+//         return `${slugify(cat_name_en)}?cat=${cat_id}?&subcat=${s.subcat_id}`
+//     })
+//     return newArr
+//     // return `${slugify(cat_name_en)}?cat=${cat_id}`
+//   })
+//   console.log(categories)
+//   return categories.map((category) => {
+ 
+//     return {
+//       category
+//     }
+//   })
+// }
 export async function generateStaticParams() {
   const cats : DuaCategory[] = await getData()
-  const categories = cats.map(({cat_name_en, cat_id}) => {
-    return `${slugify(cat_name_en)}?cat=${cat_id}`
-  })
-  return categories.map((category) => {
-    category = category.toString()
+
+  const categories = await Promise.all(cats.map( async ({cat_name_en, cat_id}) => {
+
+    const subcat : DuaSubcategory[] = await getSubCat(cat_id.toString())
+    const newArr =  subcat.map((s) => {
+      console.log(`${slugify(cat_name_en)}?cat=${cat_id}?&subcat=${s.subcat_id}`)
+
+        return `${slugify(cat_name_en)}?cat=${cat_id}?&subcat=${s.subcat_id}`
+    })
+    return newArr
+    // return `${slugify(cat_name_en)}?cat=${cat_id}`
+  }))
+  console.log(categories)
+  const flat = categories.flat()
+  console.log(flat)
+
+  return flat.map((category) => {
+ 
     return {
       category
     }
   })
 }
+
 const Page = async ({ params, searchParams }: { params: { category: string }; searchParams: { [key: string]: string | string[] | undefined } }) => {
   const catId = searchParams.cat as string;
   const subCatId = searchParams.subcat as string;
