@@ -203,9 +203,15 @@ app.get('/api/dua/:cat', (req: Request, res: Response) => {
   }
 });
 
+
+
 app.all('*', (req: Request, res: Response, next: NextFunction) => {
   const err = new CustomError(`can't find ${req.originalUrl} on the server`, 404);
   next(err);
 });
+app.get('/', (req: Request, res: Response, next: NextFunction) => {
+  res.send("Server is running")
+});
+
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
