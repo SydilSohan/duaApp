@@ -73,11 +73,11 @@ app.get('/api/dua/:cat', (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+app.get('/', (req, res, next) => {
+    res.send("Server is running");
+});
 app.all('*', (req, res, next) => {
     const err = new CustomError_1.default(`can't find ${req.originalUrl} on the server`, 404);
     next(err);
-});
-app.get('/', (req, res, next) => {
-    res.send("Server is running");
 });
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
