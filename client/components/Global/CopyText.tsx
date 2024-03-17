@@ -1,6 +1,6 @@
 'use client'
 import { Button, useToast } from "@chakra-ui/react"
-import { IoIosCopy } from "react-icons/Io"
+import { FaCopy } from "react-icons/fa"
 
 export default function ToastExample({textValue} : {textValue : string}) {
     const toast = useToast()
@@ -18,7 +18,7 @@ export default function ToastExample({textValue} : {textValue : string}) {
       <Button
         onClick={handleClick}
       >
-        <IoIosCopy />
+        <FaCopy />
       </Button>
     )
   }

@@ -5,11 +5,10 @@ import { Flex, HStack, Input, InputGroup, InputRightAddon, Skeleton, Text, VStac
 import { BsCopy, BsBookmark, BsLightbulb,  BsShare, BsInfo } from "react-icons/bs";
 import Image from 'next/image';
 import React from 'react';
-import { IoIosSearch } from 'react-icons/Io';
+import { FaSearch} from 'react-icons/fa';
 import Categories from '@/components/Sidebar/Categories';
 import slugify from 'slugify';
 import ToastExample from '@/components/Global/CopyText';
-import { METHODS } from 'http';
 
 async function getData() {
   const res = await fetch(process.env.DB_URL + '/api/cat', {method : 'GET'});
@@ -81,7 +80,7 @@ const Page = async ({ params, searchParams }: { params: { category: string }; se
         <InputGroup display={'flex'} bg={'white'} px={4} py={2} borderRadius={'12px'} maxW={300} size='sm'>
           <Input focusBorderColor='#15803D' border={'none'} type='text' placeholder='Search By Dua Name' />
           <InputRightAddon borderRadius={'6px'}>
-            <IoIosSearch />
+            <FaSearch />
           </InputRightAddon>
         </InputGroup>
       </Flex>

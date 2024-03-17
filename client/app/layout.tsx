@@ -28,7 +28,7 @@ export default function RootLayout({
 <VStack borderRadius={'20px'} className='hidden lg:flex sticky top-4' bg={'white'} height={'90vh'} w={'90px'} alignItems={'center'} justifyContent={'center'}>
   <IoHandRightOutline  className="bg-green-600 px-1 py-2  rounded-md text-white text-4xl flex justify-self-start"  />
 
-<VStack spacing={8}>
+<VStack spacing={8} className='ldhide'>
   <IoHome  className="bg-slate-100 text-2xl  rounded-full "  />
   <IoIosApps  className="bg-slate-100 text-2xl  rounded-full " />
   <IoIosBulb className="bg-slate-100 text-2xl  rounded-full "  />
