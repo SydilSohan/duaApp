@@ -1,13 +1,13 @@
 'use client'
-import { HStack, VStack, Text, Flex } from '@chakra-ui/react'
-import React, { useCallback } from 'react'
+import { HStack, VStack, Text, Flex, InputGroup, Input, InputLeftAddon, InputRightAddon } from '@chakra-ui/react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Dua, DuaCategory, DuaSubcategory } from '@/types/types'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import ScrollLink from '../Global/Scroll'
 import slugify from 'slugify'
-import { BsDot } from 'react-icons/bs'
+import { BsDot, BsSearch } from 'react-icons/bs'
 import { FaDotCircle } from "react-icons/fa";
 type Props = {
   data : DuaCategory[]
@@ -22,7 +22,8 @@ const Categories =  ({data, subCats, subCatId, subDuas, onClose} : Props) => {
 
   const searchParams = useSearchParams()
   const activeCat  = searchParams.get("cat")
- 
+ const [searchIn, setSearchIn] = useState("")
+ const newCats = searchIn ? data.filter((cat) => cat.cat_name_en.toLowerCase().includes(searchIn.toLowerCase()) ) : data
   // Get a new searchParams string by merging the current
   // searchParams with a provided key/value pair
 
@@ -35,13 +36,23 @@ const Categories =  ({data, subCats, subCatId, subDuas, onClose} : Props) => {
       },
       [searchParams]
     )
+    useEffect(() => {
+      console.log(newCats)
+    }, [searchIn])
   return (
-  <div className='rounded-t-2xl  bg-white  overflow-auto sticky top-0'>
+  <div className='rounded-t-2xl  bg-white  overflow-auto sticky top-0 lg:min-w-[380px] overflow-x-hidden'>
     <div className='bg-green-700 text-white p-4 rounded-t-2xl '> Categories</div>
+    <InputGroup p={2} >
+    <InputRightAddon bg={'white'}>
+    <BsSearch />
+    </InputRightAddon>
+    <Input type='text' className='rounded-md' placeholder='Search Categories' value={searchIn} onChange={(e : React.ChangeEvent<HTMLInputElement>) => setSearchIn(e.target.value)} />
+  
+    </InputGroup>
     <div className='h-[85vh] overflow-y-scroll' >
 
 
-<VStack   p={2} >{data.map((item ) => (
+<VStack   p={2} >{newCats.map((item ) => (
 
   
 <Flex flexDir={'column'} flexGrow={1} w={'100%'} key={item.id}>
