@@ -42,7 +42,7 @@ const Categories =  ({data, subCats, subCatId, subDuas, onClose} : Props) => {
   return (
   <div className='rounded-t-2xl  bg-white  overflow-auto sticky top-0 lg:min-w-[380px] overflow-x-hidden'>
     <div className='bg-green-700 text-white p-4 rounded-t-2xl '> Categories</div>
-    <InputGroup p={2} >
+    <InputGroup maxW={['90%', '100%']} p={2} >
     <InputRightAddon bg={'white'}>
     <BsSearch />
     </InputRightAddon>
