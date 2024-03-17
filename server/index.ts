@@ -8,7 +8,7 @@ dotenv.config();
 const app = express();
 const port = 3001
 
-const db = new Database('../dua_main.sqlite');
+const db = new Database('./dua_main.sqlite');
 
 // Rate limiting middleware
 // const limiter = rateLimit({
