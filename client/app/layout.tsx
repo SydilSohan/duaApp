@@ -10,8 +10,8 @@ import { FaBookmark, FaHeart, FaLightbulb } from 'react-icons/fa'
 const Monts = Montserrat({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Reefers Club',
-  description: 'Where Cannabis Comes Home',
+  title: 'Dua App',
+  description: 'All Duas at one place',
 }
 
 export default function RootLayout({

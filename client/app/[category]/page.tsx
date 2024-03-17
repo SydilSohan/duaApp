@@ -9,6 +9,7 @@ import { FaSearch} from 'react-icons/fa';
 import Categories from '@/components/Sidebar/Categories';
 import slugify from 'slugify';
 import ToastExample from '@/components/Global/CopyText';
+import type { Metadata } from 'next'
 
 async function getData() {
   const res = await fetch(process.env.DB_URL + '/api/cat', {method : 'GET'});
@@ -35,28 +36,7 @@ async function getSubCat(subId: string | undefined) {
   }
   return res.json();
 }
-// export async function generateStaticParams() {
-//   const cats : DuaCategory[] = await getData()
 
-//   const categories = cats.map( async ({cat_name_en, cat_id}) => {
-
-//     const subcat : DuaSubcategory[] = await getSubCat(cat_id.toString())
-//     const newArr =  subcat.map((s) => {
-//       console.log(`${slugify(cat_name_en)}?cat=${cat_id}?&subcat=${s.subcat_id}`)
-
-//         return `${slugify(cat_name_en)}?cat=${cat_id}?&subcat=${s.subcat_id}`
-//     })
-//     return newArr
-//     // return `${slugify(cat_name_en)}?cat=${cat_id}`
-//   })
-//   console.log(categories)
-//   return categories.map((category) => {
- 
-//     return {
-//       category
-//     }
-//   })
-// }
 export async function generateStaticParams() {
   const cats : DuaCategory[] = await getData()
 
@@ -82,7 +62,10 @@ export async function generateStaticParams() {
     }
   })
 }
-
+export const metadata: Metadata = {
+  title: 'Dua App',
+  description: 'All Duas at one place',
+}
 const Page = async ({ params, searchParams }: { params: { category: string }; searchParams: { [key: string]: string | string[] | undefined } }) => {
   const catId = searchParams.cat as string;
   const subCatId = searchParams.subcat as string;
@@ -152,7 +135,7 @@ const Page = async ({ params, searchParams }: { params: { category: string }; se
                     {dua.refference_en}
                   </Text>
                   <Flex className='flex-col lg:flex-row gap-6' justifyContent={'space-between'}>
-                    <AudioPlayer src={dua.audio} />
+                   {dua.audio &&  <AudioPlayer src={dua.audio} />}
                     <HStack spacing={4}>
                       <ToastExample textValue={dua.top_en +" " +  dua.dua_arabic + " Transliteration:" + dua.transliteration_en + " Translation:" +  dua.translation_en + " Reference" + dua.refference_en} />
                       <BsBookmark className={"cursor-pointer"} />

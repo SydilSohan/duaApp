@@ -47,7 +47,7 @@ const Sidebar = ({data, subCats ,  subDuas,  activeCat, subCatId}: Props) => {
         <DrawerOverlay />
         <DrawerContent>
          
-          <DrawerHeader> <DrawerCloseButton /></DrawerHeader>
+          <DrawerCloseButton />
 
        <DrawerBody p={0}>
       
@@ -59,7 +59,6 @@ const Sidebar = ({data, subCats ,  subDuas,  activeCat, subCatId}: Props) => {
             <Button variant='outline' mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme='blue'>Save</Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
