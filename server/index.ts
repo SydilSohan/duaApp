@@ -25,6 +25,8 @@ const db = new Database('./dua_main.sqlite');
 // Define API endpoints
 
 app.get('/api/cat', (req: Request, res: Response) => {
+  console.log("received on cat")
+
   try {
     const sql = 'SELECT * FROM category LIMIT 0,30';
     db.all(sql, [], (err: Error, rows: any[]) => {
@@ -41,6 +43,7 @@ app.get('/api/cat', (req: Request, res: Response) => {
 });
 
 app.get('/api/subcat/:subId', (req: Request, res: Response) => {
+  console.log("received on sub")
   const subId: string = req.params.subId;
   try {
     const query = `SELECT * FROM sub_category WHERE cat_id = ?`;
@@ -58,6 +61,8 @@ app.get('/api/subcat/:subId', (req: Request, res: Response) => {
 });
 
 app.get('/api/dua/:cat', (req: Request, res: Response) => {
+  console.log("received on dua")
+
   const id: string = req.params.cat;
   const type: string = req.query.type as string || 'cat'; // Default to 'cat' if type is not provided
   console.log(type);

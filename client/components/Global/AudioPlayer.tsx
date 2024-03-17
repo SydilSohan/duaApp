@@ -12,6 +12,8 @@ const AudioPlayer = ({ src, autoplay = false }: AudioPlayerProps) => {
     src={src}
     autoPlay={autoplay}
    controls={true}
+   preload='none'
+   
   />
   )
 }

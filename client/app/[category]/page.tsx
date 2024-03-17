@@ -44,9 +44,9 @@ export async function generateStaticParams() {
 
     const subcat : DuaSubcategory[] = await getSubCat(cat_id.toString())
     const newArr =  subcat.map((s) => {
-      console.log(`${slugify(cat_name_en)}?cat=${cat_id}?&subcat=${s.subcat_id}`)
+      console.log(`${slugify(cat_name_en)}?cat=${cat_id}&subcat=${s.subcat_id}`)
 
-        return `${slugify(cat_name_en)}?cat=${cat_id}?&subcat=${s.subcat_id}`
+        return `${slugify(cat_name_en)}?cat=${cat_id}&subcat=${s.subcat_id}`
     })
     return newArr
     // return `${slugify(cat_name_en)}?cat=${cat_id}`
@@ -56,7 +56,7 @@ export async function generateStaticParams() {
   console.log(flat)
 
   return flat.map((category) => {
- 
+   category =  category.toLocaleLowerCase()
     return {
       category
     }
