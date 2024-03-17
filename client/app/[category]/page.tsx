@@ -9,19 +9,19 @@ import { IoIosSearch } from 'react-icons/Io';
 import Categories from '@/components/Sidebar/Categories';
 import slugify from 'slugify';
 import ToastExample from '@/components/Global/CopyText';
+import { METHODS } from 'http';
 
 async function getData() {
-  const res = await fetch('http://localhost:3001/api/cat');
+  const res = await fetch(process.env.DB_URL + '/api/cat', {method : 'GET'});
   if (!res.ok) {
     throw new Error('Failed to fetch categories');
   }
   return res.json();
 }
-
 async function getDuas(catId: string, type?: string) {
   if (!catId) throw new Error('No id provided');
 
-  const res = await fetch(`http://localhost:3001/api/dua/${catId}?type=${type}`);
+  const res = await fetch(process.env.DB_URL + "/api/dua/+"+ catId +"?type=" +type);
   if (!res.ok) {
     throw new Error('Failed to fetch duas');
   }
@@ -30,8 +30,7 @@ async function getDuas(catId: string, type?: string) {
 
 async function getSubCat(subId: string | undefined) {
   if (!subId) throw new Error('No id provided');
-  
-  const res = await fetch(`http://localhost:3001/api/subcat/${subId}`);
+  const res = await fetch(process.env.DB_URL + "/api/subcat/" + subId, {method : "GET"});
   if (!res.ok) {
     throw new Error('Failed to fetch subcategories');
   }
