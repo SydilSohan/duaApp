@@ -26,21 +26,7 @@ export default function RootLayout({
         <Providers>
           
       <Flex className='w-screen bg-repeat-y justify-center items-start mx-auto min-h-screen ' bgColor={'#EBEEF2'} pt={10}>
-<VStack borderRadius={'20px'} className='hidden lg:flex sticky top-4' bg={'white'} height={'90vh'} w={'90px'} alignItems={'center'} justifyContent={'center'}>
-  <IoHandRightOutline  className="bg-green-600 px-1 py-2  rounded-md text-white text-4xl flex justify-self-start"  />
 
-<VStack spacing={8} className='ldhide'>
-  <IoHome  className="bg-slate-100 text-2xl  rounded-full "  />
-  <BsApp className="bg-slate-100 text-2xl  rounded-full " />
-  <FaLightbulb className="bg-slate-100 text-2xl  rounded-full "  />
-  <FaBookmark className="bg-slate-100 text-2xl  rounded-full " />
-  <FaHeart className="bg-slate-100 text-2xl  rounded-full " />
-  <BsChat  className="bg-slate-100 text-2xl  rounded-full " />
-  <BsBook className="bg-slate-100 text-2xl  rounded-full "  />
-</VStack>
-<BsHandThumbsUpFill  className="bg-green-600 px-1 py-2  rounded-md text-white text-4xl flex justify-self-start"  />
-
-</VStack>
 <div className=''>
 {children}
        
