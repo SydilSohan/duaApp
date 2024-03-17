@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const sqlite3_1 = require("sqlite3");
-const CustomError_1 = __importDefault(require("./src/Utils/CustomError"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -76,8 +75,8 @@ app.get('/api/dua/:cat', (req, res) => {
 app.get('/', (req, res, next) => {
     res.send("Server is running");
 });
-app.all('*', (req, res, next) => {
-    const err = new CustomError_1.default(`can't find ${req.originalUrl} on the server`, 404);
-    next(err);
-});
+// app.all('*', (req: Request, res: Response, next: NextFunction) => {
+//   const err = new CustomError(`can't find ${req.originalUrl} on the server`, 404);
+//   next(err);
+// });
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

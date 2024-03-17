@@ -2,7 +2,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import rateLimit from 'express-rate-limit';
 import { Database } from 'sqlite3';
-import CustomError from './src/Utils/CustomError';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -81,10 +80,10 @@ app.get('/', (req: Request, res: Response, next: NextFunction) => {
   res.send("Server is running")
 });
 
-app.all('*', (req: Request, res: Response, next: NextFunction) => {
-  const err = new CustomError(`can't find ${req.originalUrl} on the server`, 404);
-  next(err);
-});
+// app.all('*', (req: Request, res: Response, next: NextFunction) => {
+//   const err = new CustomError(`can't find ${req.originalUrl} on the server`, 404);
+//   next(err);
+// });
 
 
 
