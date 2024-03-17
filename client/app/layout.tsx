@@ -4,8 +4,9 @@ import './globals.css'
 import { Providers } from '@/components/chakra/Provider'
 import { Flex, VStack } from '@chakra-ui/react'
 import {IoHandRightOutline, IoHome} from "react-icons/io5"
-import { IoMdHome, IoMdBook, IoIosBookmark, IoIosChatboxes, IoIosHeart, IoIosBulb, IoIosBook, IoIosApps } from 'react-icons/Io'
-import { BsHandThumbsUpFill } from 'react-icons/bs'
+
+import { BsApp, BsBook, BsChat, BsHandThumbsUpFill } from 'react-icons/bs'
+import { FaBookmark, FaHeart, FaLightbulb } from 'react-icons/fa'
 const Monts = Montserrat({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -30,12 +31,12 @@ export default function RootLayout({
 
 <VStack spacing={8} className='ldhide'>
   <IoHome  className="bg-slate-100 text-2xl  rounded-full "  />
-  <IoIosApps  className="bg-slate-100 text-2xl  rounded-full " />
-  <IoIosBulb className="bg-slate-100 text-2xl  rounded-full "  />
-  <IoIosBookmark className="bg-slate-100 text-2xl  rounded-full " />
-  <IoIosHeart className="bg-slate-100 text-2xl  rounded-full " />
-  <IoIosChatboxes  className="bg-slate-100 text-2xl  rounded-full " />
-  <IoIosBook className="bg-slate-100 text-2xl  rounded-full "  />
+  <BsApp className="bg-slate-100 text-2xl  rounded-full " />
+  <FaLightbulb className="bg-slate-100 text-2xl  rounded-full "  />
+  <FaBookmark className="bg-slate-100 text-2xl  rounded-full " />
+  <FaHeart className="bg-slate-100 text-2xl  rounded-full " />
+  <BsChat  className="bg-slate-100 text-2xl  rounded-full " />
+  <BsBook className="bg-slate-100 text-2xl  rounded-full "  />
 </VStack>
 <BsHandThumbsUpFill  className="bg-green-600 px-1 py-2  rounded-md text-white text-4xl flex justify-self-start"  />
 
