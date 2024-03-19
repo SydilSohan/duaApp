@@ -49,7 +49,6 @@ export async function generateStaticParams() {
         return `${slugify(cat_name_en)}?cat=${cat_id}&subcat=${s.subcat_id}`
     })
     return newArr
-    // return `${slugify(cat_name_en)}?cat=${cat_id}`
   }))
   console.log(categories)
   const flat = categories.flat()
@@ -70,24 +69,15 @@ const Page = async ({ params, searchParams }: { params: { category: string }; se
   const catId = searchParams.cat as string;
   const subCatId = searchParams.subcat as string;
 
-  let loading = true;
-  let error = null;
-  let data: DuaCategory[] = [];
-  let subCats: DuaSubcategory[] = [];
-  let duas: Dua[] = [];
-  let subDuas: Dua[] | null = null;
 
-  try {
-    data = await getData();
-    subCats = await getSubCat(catId);
-    duas = await getDuas(catId);
-    if (searchParams.subcat) {
-      subDuas = await getDuas(searchParams.subcat as string, "sub");
-    }
-    loading = false;
-  } catch (err) {
-    loading = false;
-  }
+
+ 
+   const data : DuaCategory[] = await getData();
+   const  subCats : DuaSubcategory[] = await getSubCat(catId);
+   const duas : Dua[] = await getDuas(catId);
+
+    const  subDuas : Dua[] | null = searchParams.subcat ? await getDuas(searchParams.subcat as string, "sub") : null;
+
 
   return (
     <main className="flex flex-grow  flex-col justify-start text-center pb-16 gap-4 max-w-screen-xl m-2">
@@ -96,24 +86,20 @@ const Page = async ({ params, searchParams }: { params: { category: string }; se
         <div className='flex sm:hidden'>
           <Sidebar data={data} subCatId={subCatId} subDuas={subDuas} subCats={subCats} activeCat={catId} />
         </div>
-        <h2 className='lg:ml-4 mb-4 lg:text-4xl font-normal text-left'>{params.category}</h2>
+        <h2 className='lg:ml-4 my-4 lg:text-4xl font-normal text-left'>{params.category}</h2>
         <InputGroup display={'flex'} bg={'white'} px={4} py={2} borderRadius={'12px'} maxW={300} size='sm'>
-          <Input focusBorderColor='#15803D' border={'none'} type='text' placeholder='Search By Dua Name' />
+          
           <InputRightAddon borderRadius={'6px'}>
             <FaSearch />
           </InputRightAddon>
         </InputGroup>
       </Flex>
-      <HStack alignItems={'start'} justifyContent={'start'} className='max-w-screen-xl w-full'>
-        <div className='hidden lg:flex sticky top-4'>
+      <HStack alignItems={'start'} justifyContent={'start'} >
+        <div className='hidden lg:flex sticky top-4 max-w-[380px]'>
           <Categories data={data} subCats={subCats} activeCat={catId} subCatId={subCatId} subDuas={subDuas} />
         </div>
         <VStack gap={4} maxW={['100%', "70%"]}>
-          {loading ? (
-            <Skeleton height="20px" />
-          ) : error ? (
-            <Text color="red.500">{error}</Text>
-          ) : (
+          {
             duas.map((dua) => (
               <div key={dua.id} id={dua.dua_id.toString()} className=' bg-white p-4  rounded-2xl flex flex-col min-w-full'>
                 <HStack>
@@ -148,7 +134,7 @@ const Page = async ({ params, searchParams }: { params: { category: string }; se
                 </VStack>
               </div>
             ))
-          )}
+          }
         </VStack>
       </HStack>
     </main>
